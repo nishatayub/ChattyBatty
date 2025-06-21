@@ -1,5 +1,5 @@
 import React from 'react';
-import NewLanding from './NewLanding';
+import NewLanding from './LandingPage';
 
 function App() {
   return (
