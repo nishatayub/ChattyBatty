@@ -1,10 +1,10 @@
 import React from 'react';
-import Chat from './Chat';
+import NewLanding from './NewLanding';
 
 function App() {
   return (
     <div className="App">
-      <Chat />
+      <NewLanding />
     </div>
   );
 }
