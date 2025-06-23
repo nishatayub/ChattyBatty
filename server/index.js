@@ -29,14 +29,43 @@ app.get('/', (req, res) => {
 io.on('connection', async (socket) => {
   console.log("New WebSocket connection:", socket.id);
 
-  const existingMessages = await Message.find().sort({ createdAt: -1 }).limit(50);
-  socket.emit("previousMessages", existingMessages.reverse());
-
-  socket.on("sendMessage", async ({ user, text }) => {
+  // Join a chat room between two users
+  socket.on("joinChat", async ({ currentUser, targetUser }) => {
+    // Create a unique room ID for the two users (alphabetically sorted to ensure consistency)
+    const roomId = [currentUser, targetUser].sort().join('_');
+    socket.join(roomId);
+    console.log(`${currentUser} joined room ${roomId} to chat with ${targetUser}`);
+    
+    // Send previous messages between these two users
     try {
-      const message = new Message({ user, text });
+      const existingMessages = await Message.find({
+        $or: [
+          { user: currentUser, targetUser: targetUser },
+          { user: targetUser, targetUser: currentUser }
+        ]
+      }).sort({ createdAt: -1 }).limit(50);
+      
+      socket.emit("previousMessages", existingMessages.reverse());
+    } catch (error) {
+      console.error("Error fetching previous messages:", error);
+    }
+  });
+
+  socket.on("sendMessage", async ({ user, text, targetUser, timestamp }) => {
+    try {
+      const message = new Message({ 
+        user, 
+        text, 
+        targetUser,
+        timestamp: timestamp || new Date().toISOString()
+      });
       await message.save();
-      io.emit("receiveMessage", message);
+      
+      // Send to the specific room only
+      const roomId = [user, targetUser].sort().join('_');
+      io.to(roomId).emit("receiveMessage", message);
+      
+      console.log(`Message from ${user} to ${targetUser}: ${text}`);
     } catch (error) {
       console.error("Error saving message:", error);
     }

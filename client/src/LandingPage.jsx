@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
-import Chat from './Chat';
+import { useNavigate } from 'react-router-dom';
 
 function Landing() {
-  const [showChat, setShowChat] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-
-  if (showChat) {
-    return <Chat />;
-  }
+  const navigate = useNavigate();
 
   const scrollToSection = (sectionId) => {
     setActiveSection(sectionId);
@@ -57,7 +53,7 @@ function Landing() {
                 FAQ
               </button>
               <button 
-                onClick={() => setShowChat(true)}
+                onClick={() => navigate('/login')}
                 className="bg-gradient-to-r from-[#e8a7b8] to-[#d4a5c4] text-white px-6 py-2 rounded-2xl font-medium hover:from-[#e595aa] hover:to-[#c993b8] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
                 Start Chat
@@ -100,7 +96,7 @@ function Landing() {
               {/* CTA Buttons */}
               <div className="pt-4 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <button 
-                  onClick={() => setShowChat(true)}
+                  onClick={() => navigate('/login')}
                   className="bg-gradient-to-r from-[#e8a7b8] to-[#d4a5c4] text-white px-8 py-4 rounded-2xl font-bold text-lg hover:from-[#e595aa] hover:to-[#c993b8] transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 hover:scale-105"
                 >
                   Start Messaging
