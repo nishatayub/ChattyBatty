@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Landing() {
   const [activeSection, setActiveSection] = useState('home');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const scrollToSection = (sectionId) => {
@@ -14,19 +15,19 @@ function Landing() {
     <div className="bg-[#f5e6ea] relative overflow-hidden">
       {/* Navigation Header */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-[#e8c4d8]/20">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-[#9b7ba3] to-[#c4a1a8] rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-lg">C</span>
+            <div className="flex items-center space-x-2 md:space-x-3">
+              <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-[#9b7ba3] to-[#c4a1a8] rounded-xl flex items-center justify-center">
+                <span className="text-white font-bold text-base md:text-lg">C</span>
               </div>
               <div>
-                <h1 className="text-[#6b4c57] font-bold text-xl">Chattie</h1>
+                <h1 className="text-[#6b4c57] font-bold text-lg md:text-xl">Chattie</h1>
               </div>
             </div>
 
-            {/* Navigation Links */}
+            {/* Desktop Navigation Links */}
             <div className="hidden md:flex items-center space-x-8">
               <button 
                 onClick={() => scrollToSection('home')}
@@ -59,21 +60,83 @@ function Landing() {
                 Start Chat
               </button>
             </div>
+
+            {/* Mobile Menu Button & CTA */}
+            <div className="flex items-center space-x-3 md:hidden">
+              <button 
+                onClick={() => navigate('/login')}
+                className="bg-gradient-to-r from-[#e8a7b8] to-[#d4a5c4] text-white px-4 py-2 rounded-xl font-medium hover:from-[#e595aa] hover:to-[#c993b8] transition-all duration-300 shadow-lg text-sm"
+              >
+                Start Chat
+              </button>
+              <button 
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-[#6b4c57] hover:bg-[#e8c4d8]/30 p-2 rounded-xl transition-colors"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+                </svg>
+              </button>
+            </div>
           </div>
+
+          {/* Mobile Menu */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden mt-4 pb-4 border-t border-[#e8c4d8]/20">
+              <div className="flex flex-col space-y-4 pt-4">
+                <button 
+                  onClick={() => {
+                    scrollToSection('home');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={`font-medium transition-colors text-left ${activeSection === 'home' ? 'text-[#9b7ba3]' : 'text-[#6b4c57] hover:text-[#9b7ba3]'}`}
+                >
+                  Home
+                </button>
+                <button 
+                  onClick={() => {
+                    scrollToSection('features');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={`font-medium transition-colors text-left ${activeSection === 'features' ? 'text-[#9b7ba3]' : 'text-[#6b4c57] hover:text-[#9b7ba3]'}`}
+                >
+                  Features
+                </button>
+                <button 
+                  onClick={() => {
+                    scrollToSection('testimonials');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={`font-medium transition-colors text-left ${activeSection === 'testimonials' ? 'text-[#9b7ba3]' : 'text-[#6b4c57] hover:text-[#9b7ba3]'}`}
+                >
+                  Reviews
+                </button>
+                <button 
+                  onClick={() => {
+                    scrollToSection('faq');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={`font-medium transition-colors text-left ${activeSection === 'faq' ? 'text-[#9b7ba3]' : 'text-[#6b4c57] hover:text-[#9b7ba3]'}`}
+                >
+                  FAQ
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
       {/* Background decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-32 left-16 w-24 h-24 bg-[#9b7ba3]/20 rounded-full blur-xl animate-float-slow"></div>
-        <div className="absolute top-96 right-24 w-32 h-32 bg-[#c4a1a8]/15 rounded-full blur-2xl animate-float-delayed"></div>
-        <div className="absolute top-[800px] left-32 w-20 h-20 bg-[#d4b5c4]/25 rounded-full blur-lg animate-float"></div>
-        <div className="absolute top-[1200px] right-16 w-28 h-28 bg-[#a8869c]/20 rounded-full blur-xl animate-pulse-slow"></div>
+        <div className="absolute top-32 left-4 md:left-16 w-16 h-16 md:w-24 md:h-24 bg-[#9b7ba3]/20 rounded-full blur-xl animate-float-slow"></div>
+        <div className="absolute top-96 right-4 md:right-24 w-20 h-20 md:w-32 md:h-32 bg-[#c4a1a8]/15 rounded-full blur-2xl animate-float-delayed"></div>
+        <div className="absolute top-[800px] left-4 md:left-32 w-16 h-16 md:w-20 md:h-20 bg-[#d4b5c4]/25 rounded-full blur-lg animate-float"></div>
+        <div className="absolute top-[1200px] right-4 md:right-16 w-20 h-20 md:w-28 md:h-28 bg-[#a8869c]/20 rounded-full blur-xl animate-pulse-slow"></div>
       </div>
 
       {/* Hero Section */}
-      <section id="home" className="relative z-10 min-h-screen flex items-center justify-center px-6 pt-20">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+      <section id="home" className="relative z-10 min-h-screen flex items-center justify-center px-4 md:px-6 pt-24 md:pt-20">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
           
           {/* Left Content - Hero Section */}
           <div className="text-center lg:text-left space-y-8">

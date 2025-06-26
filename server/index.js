@@ -46,6 +46,20 @@ io.on('connection', async (socket) => {
       }).sort({ createdAt: -1 }).limit(50);
       
       socket.emit("previousMessages", existingMessages.reverse());
+      
+      // Send a demo message from the target user after a short delay if no previous messages
+      if (existingMessages.length === 0) {
+        setTimeout(async () => {
+          const welcomeMessage = new Message({
+            user: targetUser,
+            text: `Hey ${currentUser}! 👋 Thanks for connecting with me on ChattyBatty!`,
+            targetUser: currentUser,
+            timestamp: new Date().toISOString()
+          });
+          await welcomeMessage.save();
+          io.to(roomId).emit("receiveMessage", welcomeMessage);
+        }, 2000);
+      }
     } catch (error) {
       console.error("Error fetching previous messages:", error);
     }
@@ -66,9 +80,45 @@ io.on('connection', async (socket) => {
       io.to(roomId).emit("receiveMessage", message);
       
       console.log(`Message from ${user} to ${targetUser}: ${text}`);
+      
+      // Simulate a response from the target user after a delay
+      setTimeout(async () => {
+        const responses = [
+          "That's interesting! 🤔",
+          "I totally agree with you! 👍",
+          "Thanks for sharing that! 😊",
+          "Really? Tell me more about that!",
+          "Haha, that's funny! 😄",
+          "I see what you mean 💭",
+          "That sounds great! ✨",
+          "Absolutely! 💯",
+          "I had a similar experience once!",
+          "That's a good point! 🎯"
+        ];
+        
+        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+        
+        const responseMessage = new Message({
+          user: targetUser,
+          text: randomResponse,
+          targetUser: user,
+          timestamp: new Date().toISOString()
+        });
+        
+        await responseMessage.save();
+        io.to(roomId).emit("receiveMessage", responseMessage);
+        
+        console.log(`Auto-response from ${targetUser} to ${user}: ${randomResponse}`);
+      }, Math.random() * 3000 + 1000); // Random delay between 1-4 seconds
+      
     } catch (error) {
       console.error("Error saving message:", error);
     }
+  });
+
+  socket.on("typing", ({ user, targetUser }) => {
+    const roomId = [user, targetUser].sort().join('_');
+    socket.to(roomId).emit("userTyping", { user });
   });
 
   socket.on("disconnect", () => {

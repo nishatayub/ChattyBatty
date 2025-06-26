@@ -6,6 +6,9 @@ import Chat from './Chat';
 import UserSelection from './UserSelection';
 import ChatInterface from './ChatInterface';
 import FriendRequests from './FriendRequests';
+import Groups from './Groups';
+import GroupChat from './GroupChat';
+import Settings from './Settings';
 
 function App() {
   return (
@@ -17,6 +20,9 @@ function App() {
           <Route path="/chat" element={<Chat />} />
           <Route path="/users" element={<UserSelection />} />
           <Route path="/requests" element={<FriendRequests />} />
+          <Route path="/groups" element={<Groups />} />
+          <Route path="/group/:groupId" element={<GroupChat />} />
+          <Route path="/settings" element={<Settings />} />
           <Route path="/chat/:targetUser" element={<ChatInterface />} />
         </Routes>
       </div>

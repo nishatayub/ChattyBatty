@@ -61,10 +61,6 @@ function FriendRequests() {
     navigate('/users');
   };
 
-  const handleBackToHome = () => {
-    navigate('/');
-  };
-
   const formatTimeAgo = (timestamp) => {
     const now = new Date();
     const time = new Date(timestamp);
@@ -84,77 +80,72 @@ function FriendRequests() {
     <div className="min-h-screen bg-[#f5e6ea] relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-32 left-16 w-24 h-24 bg-[#9b7ba3]/20 rounded-full blur-xl animate-float-slow"></div>
-        <div className="absolute top-96 right-24 w-32 h-32 bg-[#c4a1a8]/15 rounded-full blur-2xl animate-float-delayed"></div>
-        <div className="absolute bottom-40 left-32 w-20 h-20 bg-[#d4b5c4]/25 rounded-full blur-lg animate-float"></div>
-        <div className="absolute bottom-24 right-16 w-28 h-28 bg-[#a8869c]/20 rounded-full blur-xl animate-pulse-slow"></div>
+        <div className="absolute top-32 left-4 md:left-16 w-16 h-16 md:w-24 md:h-24 bg-[#9b7ba3]/20 rounded-full blur-xl animate-float-slow"></div>
+        <div className="absolute top-96 right-4 md:right-24 w-20 h-20 md:w-32 md:h-32 bg-[#c4a1a8]/15 rounded-full blur-2xl animate-float-delayed"></div>
+        <div className="absolute bottom-40 left-4 md:left-32 w-16 h-16 md:w-20 md:h-20 bg-[#d4b5c4]/25 rounded-full blur-lg animate-float"></div>
+        <div className="absolute bottom-24 right-4 md:right-16 w-20 h-20 md:w-28 md:h-28 bg-[#a8869c]/20 rounded-full blur-xl animate-pulse-slow"></div>
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 min-h-screen p-6">
+      <div className="relative z-10 min-h-screen p-3 md:p-6">
         <div className="max-w-4xl mx-auto">
           
           {/* Header */}
-          <div className="bg-white/80 backdrop-blur-lg rounded-3xl p-6 mb-6 shadow-2xl border border-white/20">
+          <div className="bg-white/80 backdrop-blur-lg rounded-2xl md:rounded-3xl p-4 md:p-6 mb-4 md:mb-6 shadow-2xl border border-white/20">
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2 md:space-x-4 flex-1 min-w-0">
                 <button 
                   onClick={handleBackToUsers}
-                  className="text-2xl text-[#6b4c57] hover:bg-[#e8c4d8]/30 p-2 rounded-xl transition-colors"
+                  className="text-xl md:text-2xl text-[#6b4c57] hover:bg-[#e8c4d8]/30 p-1.5 md:p-2 rounded-xl transition-colors flex-shrink-0"
                   title="Back to Users"
                 >
                   ←
                 </button>
-                <button 
-                  onClick={handleBackToHome}
-                  className="text-sm text-[#6b4c57] hover:bg-[#e8c4d8]/30 px-3 py-1 rounded-xl transition-colors"
-                >
-                  🏠 Home
-                </button>
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-[#9b7ba3] to-[#c4a1a8] rounded-xl flex items-center justify-center shadow-lg">
-                    <span className="text-white font-bold text-lg">📨</span>
+                
+                <div className="flex items-center space-x-2 md:space-x-3 min-w-0">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-[#9b7ba3] to-[#c4a1a8] rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
+                    <span className="text-white font-bold text-base md:text-lg">📨</span>
                   </div>
-                  <div>
-                    <h1 className="text-[#6b4c57] font-bold text-2xl">Friend Requests</h1>
-                    <p className="text-[#9b7ba3] text-sm">Hi, {currentUser.displayName}!</p>
+                  <div className="min-w-0">
+                    <h1 className="text-[#6b4c57] font-bold text-lg md:text-2xl truncate">Friend Requests</h1>
+                    <p className="text-[#9b7ba3] text-xs md:text-sm truncate">Hi, {currentUser.displayName}!</p>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center space-x-4">
-                <div className="text-right">
-                  <p className="text-[#6b4c57] text-sm font-medium">{requests.length} pending requests</p>
+              <div className="flex items-center space-x-2 md:space-x-4 flex-shrink-0">
+                <div className="text-right hidden sm:block">
+                  <p className="text-[#6b4c57] text-xs md:text-sm font-medium">{requests.length} pending requests</p>
                   <p className="text-[#9b7ba3] text-xs">Manage your connections</p>
                 </div>
-                <div className="w-12 h-12 bg-gradient-to-br from-[#e8a7b8] to-[#d4a5c4] rounded-full flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-lg">{currentUser.avatar}</span>
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-[#e8a7b8] to-[#d4a5c4] rounded-full flex items-center justify-center shadow-lg">
+                  <span className="text-white font-bold text-sm md:text-lg">{currentUser.avatar}</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Friend Requests */}
-          <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-white/20">
+          <div className="bg-white/70 backdrop-blur-sm rounded-2xl md:rounded-3xl p-4 md:p-6 shadow-xl border border-white/20">
             {requests.length === 0 ? (
-              <div className="text-center py-12">
-                <div className="w-20 h-20 bg-gradient-to-br from-[#c4a1a8] to-[#9b7ba3] rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                  <span className="text-white text-3xl">📭</span>
+              <div className="text-center py-8 md:py-12">
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-[#c4a1a8] to-[#9b7ba3] rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                  <span className="text-white text-2xl md:text-3xl">📭</span>
                 </div>
-                <h3 className="text-[#6b4c57] font-bold text-xl mb-2">No Friend Requests</h3>
-                <p className="text-[#8b6b78] mb-4">You're all caught up! No pending requests.</p>
+                <h3 className="text-[#6b4c57] font-bold text-lg md:text-xl mb-2">No Friend Requests</h3>
+                <p className="text-[#8b6b78] mb-4 text-sm md:text-base px-4">You're all caught up! No pending requests.</p>
                 <button 
                   onClick={handleBackToUsers}
-                  className="bg-gradient-to-r from-[#e8a7b8] to-[#d4a5c4] text-white px-6 py-3 rounded-2xl font-medium hover:from-[#e595aa] hover:to-[#c993b8] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                  className="bg-gradient-to-r from-[#e8a7b8] to-[#d4a5c4] text-white px-4 md:px-6 py-2 md:py-3 rounded-xl md:rounded-2xl font-medium text-sm md:text-base hover:from-[#e595aa] hover:to-[#c993b8] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                 >
                   Find People to Connect
                 </button>
               </div>
             ) : (
               <div className="space-y-4">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-[#6b4c57] font-bold text-xl">Pending Requests</h2>
-                  <span className="bg-[#e8a7b8]/20 text-[#6b4c57] px-3 py-1 rounded-full text-sm font-medium">
+                <div className="flex items-center justify-between mb-4 md:mb-6">
+                  <h2 className="text-[#6b4c57] font-bold text-lg md:text-xl">Pending Requests</h2>
+                  <span className="bg-gradient-to-r from-[#e8a7b8]/20 to-[#d4a5c4]/20 text-[#6b4c57] px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium">
                     {requests.length} new
                   </span>
                 </div>
@@ -162,35 +153,35 @@ function FriendRequests() {
                 {requests.map((request) => (
                   <div
                     key={request.id}
-                    className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-white/40 hover:shadow-xl transition-all duration-300"
+                    className="bg-white/80 backdrop-blur-sm rounded-xl md:rounded-2xl p-3 md:p-4 shadow-lg border border-white/40 hover:shadow-xl transition-all duration-300"
                   >
-                    <div className="flex items-start space-x-4">
-                      <div className="relative">
-                        <div className="w-14 h-14 bg-gradient-to-br from-[#c4a1a8] to-[#9b7ba3] rounded-full flex items-center justify-center shadow-lg">
-                          <span className="text-white font-bold text-lg">{request.from.avatar}</span>
+                    <div className="flex items-start space-x-3 md:space-x-4">
+                      <div className="relative flex-shrink-0">
+                        <div className="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-[#c4a1a8] to-[#9b7ba3] rounded-full flex items-center justify-center shadow-lg">
+                          <span className="text-white font-bold text-base md:text-lg">{request.from.avatar}</span>
                         </div>
-                        <div className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-white ${
-                          request.from.status === 'online' ? 'bg-green-400' : 'bg-gray-400'
+                        <div className={`absolute -bottom-1 -right-1 w-3 h-3 md:w-4 md:h-4 rounded-full border-2 border-white ${
+                          request.from.status === 'online' ? 'bg-[#e8a7b8]' : 'bg-gray-400'
                         }`}></div>
                       </div>
                       
-                      <div className="flex-1">
+                      <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-2">
-                          <div>
-                            <h3 className="text-[#6b4c57] font-bold text-lg">{request.from.displayName}</h3>
-                            <p className="text-[#9b7ba3] text-sm">@{request.from.username}</p>
+                          <div className="min-w-0 flex-1">
+                            <h3 className="text-[#6b4c57] font-bold text-base md:text-lg truncate">{request.from.displayName}</h3>
+                            <p className="text-[#9b7ba3] text-xs md:text-sm truncate">@{request.from.username}</p>
                           </div>
-                          <span className="text-[#8b6b78] text-xs">{formatTimeAgo(request.timestamp)}</span>
+                          <span className="text-[#8b6b78] text-xs flex-shrink-0 ml-2">{formatTimeAgo(request.timestamp)}</span>
                         </div>
                         
-                        <p className="text-[#6b4c57] text-sm mb-4 leading-relaxed">
+                        <p className="text-[#6b4c57] text-sm mb-3 md:mb-4 leading-relaxed">
                           {request.message}
                         </p>
                         
-                        <div className="flex space-x-3">
+                        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
                           <button 
                             onClick={() => handleAcceptRequest(request.id)}
-                            className="bg-gradient-to-r from-[#4ade80] to-[#22c55e] text-white px-4 py-2 rounded-xl text-sm font-medium hover:from-[#22c55e] hover:to-[#16a34a] transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1"
+                            className="bg-gradient-to-r from-[#e8a7b8] to-[#d4a5c4] text-white px-4 py-2 rounded-xl text-sm font-medium hover:from-[#e595aa] hover:to-[#c993b8] transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1"
                           >
                             ✓ Accept & Chat
                           </button>
