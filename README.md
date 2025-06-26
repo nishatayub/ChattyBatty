@@ -6,7 +6,6 @@ ChattyBatty is now a fully frontend-based chat application that runs entirely in
 ---
 
 ## ✨ Features
-
 - 💬 **Simulated Real-Time Messaging** — Frontend-only chat with auto-responses and localStorage persistence
 - 👥 **Group Chats** — Create and participate in group conversations with multiple simulated members
 - ⚙️ **Group Management** — Settings tab to view members, kick users, and leave groups
